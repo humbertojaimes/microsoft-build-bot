@@ -1,0 +1,80 @@
+version: "3.7"
+
+services:
+  
+  luis:
+    image: mcr.microsoft.com/azure-cognitive-services/luis
+    volumes:
+       - type: bind
+         source: /LuisModels/MicrosoftBuild/input
+         target: /input
+       - type: bind
+         source: /LuisModels/MicrosoftBuild/output
+         target: /output
+    environment:
+       - Billing=https://westus.api.cognitive.microsoft.com/luis/v2.0
+       - ApiKey=
+       - Eula=accept
+    ports:
+      - "8010:5000"
+    networks:
+      - app-network
+
+  sqlserver:
+    build:
+      context: .
+      dockerfile: sql_server/Dockerfile
+      args:
+       - SA_PASSWORD=
+       - ACCEPT_EULA=Y
+    volumes:
+       - mssql:/SQLServer
+    ports:
+      - "1433:1433"
+    networks:
+      - app-network
+
+  bot:
+    build: 
+      context: .
+      dockerfile: CognitiveBot/Dockerfile
+      args:
+       - DirectLine=http://directline:3010
+       - DbUser=SA
+       - DataSource=sqlserver,1433
+       - Password=StrongHJaimes46*
+       - LanguageEndPoint=language:8020
+       - TextEndPoint=text:5000
+       - LuisEndPoint=luis:5000
+       - LuisAppId=
+    depends_on:
+      - sqlserver
+      - luis
+    ports:
+      - "3978:80"
+    networks:
+      - app-network
+     
+  directline:
+    build: 
+      context: .
+      dockerfile: OfflineDirectLine/Dockerfile
+      args:
+       - UseDirectLinePort=3010
+       - BotEndPoint=bot:80
+       - BotPath=/api/messages
+       - UseDirectLineHost=http://directline
+    depends_on:
+      - bot
+    ports:
+      - "3010:3010"
+      - "9229:9229"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+
+volumes:
+  mssql:
+  

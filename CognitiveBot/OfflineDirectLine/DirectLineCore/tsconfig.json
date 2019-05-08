@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "declaration": true,
+        "module": "commonjs",
+        "target": "es6",
+        "outDir": "dist",
+        "noImplicitAny": false,
+        "sourceMap": true
+    },
+    "files": [
+        "src/bridge.ts",
+        "src/cmdutil.ts"
+    ]
+}

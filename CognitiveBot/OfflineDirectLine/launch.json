@@ -1,0 +1,15 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "type": "node",
+        "request": "attach",
+        "name": "Remote Debugging",
+        "address": "0.0.0.0",
+        "port": 9229,
+        "localRoot": "${workspaceFolder}/dist",
+        "remoteRoot": "/app/dist",
+        "protocol":"inspector"
+      }
+    ]
+  }

@@ -1,0 +1,18 @@
+{
+    "name": "CognitiveBot",
+    "description": "",
+    "services": [
+        {
+            "type": "endpoint",
+            "appId": "",
+            "appPassword": "",
+            "endpoint": "http://127.0.0.1:3978/api/messages",
+            "id": "1",
+            "name": "development"
+        }
+    ],
+    "padlock": "",
+    "version": "2.0",
+    "path": "/Projects/CognitiveBot/CognitiveBot/CognitiveBot.bot",
+    "overrides": null
+}

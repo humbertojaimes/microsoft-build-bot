@@ -1,0 +1,13 @@
+{
+  "name": "offline_directline",
+  "version": "1.0.0",
+  "description": "Offline DirectLine on Docker",
+  "author": "Humberto Jaimes, Luis Beltran",
+  "main": "index.js",
+  "scripts": {
+    "start": "node --inspect=0.0.0.0 index.js"
+  },
+  "dependencies": {
+    "offline-directline": "file:DirectLineCore"
+  }
+}
